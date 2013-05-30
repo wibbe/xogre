@@ -1,0 +1,14 @@
+
+SET(SOURCE
+  HandleManager.cpp
+)
+
+SET(LIBRARIES
+)
+
+ADD_LIBRARY(sogre ${SOURCE})
+TARGET_LINK_LIBRARIES(sogre ${LIBRARIES})
+
+# Installation
+INSTALL(TARGETS sogre CONFIGURATIONS Release DESTINATION lib)
+
