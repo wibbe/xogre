@@ -5,6 +5,5 @@
 
 int main(int argc, char * argv[])
 {
-  test::runAllTests();
-  return 0;
+  return test::runAllTests();
 }

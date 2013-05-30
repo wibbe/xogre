@@ -59,8 +59,9 @@ namespace test {
       char m_message[128];
   };
 
-  void runAllTests()
+  int runAllTests()
   {
+    bool failed = false;
     int totalCount = 0;
     for (Test * it = _testHead; it; it = it->next())
       totalCount++;
@@ -79,10 +80,13 @@ namespace test {
       {
         printf("FAILED\n");
         printf("  %s\n", exception.message());
+        failed = true;
       }
 
       i++;
     }
+
+    return failed ? 1 : 0;
   }
 }
 
