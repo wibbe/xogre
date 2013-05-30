@@ -38,3 +38,9 @@ TEST(Handle, Copy)
   CHECK_EQ(copy.counter, 2);
   CHECK_EQ(copy.type, 3);
 }
+
+TEST(Handle, Size)
+{
+  gfx::Handle handle;
+  CHECK_EQ(sizeof(handle), sizeof(uint32_t));
+}
