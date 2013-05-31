@@ -4,6 +4,7 @@ SET(SOURCE
 
 SET(LIBRARIES
   xogre
+  ${DEPENDENCY_LIBS}
 )
 
 ADD_EXECUTABLE(unit-tests ${SOURCE})
