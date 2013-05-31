@@ -8,6 +8,13 @@ the default scene graph in Ogre with a streamlined and more cache friendly varia
 Building
 ========
 
+The following dependencies must be installed:
+
+* Ogre 3D
+* Boost
+* ZZip
+* FreeImage
+
 Execute the following to build and install the library.
 
     cd /path/to/project
