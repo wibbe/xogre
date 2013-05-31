@@ -1,4 +1,5 @@
 
+#include "Test.hpp"
 #include "Handle.hpp"
 
 TEST(Handle, DefaultConstruction)

@@ -1,5 +1,8 @@
 SET(SOURCE
    Main.cpp
+   Test.cpp
+   TestScene.cpp
+   TestHandle.cpp
 )
 
 SET(LIBRARIES

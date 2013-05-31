@@ -15,6 +15,7 @@ namespace gfx {
     Handle handle;
     Handle attachment;
     uint32_t visibilityMask;
+    float boundingRadius;
     Ogre::Vector3 position;
     Ogre::Vector3 scale;
     Ogre::Quaternion orientation;

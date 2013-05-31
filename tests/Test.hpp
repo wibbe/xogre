@@ -1,36 +1,14 @@
 
 #pragma once
 
-#include <stdarg.h>
 #include <stdio.h>
 
 namespace test {
 
-  class Test;
-
-  namespace {
-    static Test * _testHead = NULL;
-    static Test * _testTail = NULL;
-  }
-
   class Test
   {
     public:
-      Test(const char * name)
-        : m_name(name),
-          m_next(NULL)
-      {
-        if (_testHead)
-        {
-          _testTail->m_next = this;
-          _testTail = this;
-        }
-        else
-        {
-          _testHead = this;
-          _testTail = this;
-        }
-      }
+      Test(const char * name);
 
       virtual void run() = 0;
 
@@ -45,49 +23,14 @@ namespace test {
   class Exception
   {
     public:
-      Exception(const char * str, ...)
-      {
-        va_list varArg;
-        va_start(varArg, str);
-        vsnprintf(m_message, 128, str, varArg);
-        va_end(varArg);
-      }
-
+      Exception(const char * str, ...);
       const char * message() const { return m_message; }
 
     private:
       char m_message[128];
   };
 
-  int runAllTests()
-  {
-    bool failed = false;
-    int totalCount = 0;
-    for (Test * it = _testHead; it; it = it->next())
-      totalCount++;
-
-    int i = 1;
-    for (Test * it = _testHead; it; it = it->next())
-    {
-      printf("[%d/%d] %s - ", i, totalCount, it->name());
-
-      try
-      {
-        it->run();
-        printf("SUCCESS\n");
-      }
-      catch (Exception const& exception)
-      {
-        printf("FAILED\n");
-        printf("  %s\n", exception.message());
-        failed = true;
-      }
-
-      i++;
-    }
-
-    return failed ? 1 : 0;
-  }
+  int runAllTests();
 }
 
 

@@ -20,11 +20,29 @@ namespace gfx {
   Handle Scene::createNode()
   {
     m_nodes.push_back(Node());
-    return m_handles.add(&m_nodes.back());
+    Handle handle = m_handles.add(&m_nodes.back());
+    m_nodes.back().handle = handle;
+    return handle;
   }
 
   void Scene::destroyNode(Handle handle)
   {
+    Node * node = NULL;
+    if (m_handles.get(handle, node))
+    {
+      *node = m_nodes.back();
+      m_nodes.resize(m_nodes.size() - 1);
+      m_handles.update(node->handle, node);
+      m_handles.remove(handle);
+    }
+  }
+
+  bool Scene::verifyNode(Handle nodeRef)
+  {
+    Node * node = NULL;
+    if (m_handles.get(nodeRef, node))
+      return node->handle == nodeRef;
+    return false;
   }
 
   void Scene::attachEntity(Handle nodeRef, Handle entity)
@@ -39,6 +57,11 @@ namespace gfx {
     Node * node = NULL;
     if (m_handles.get(nodeRef, node))
       node->attachment = Handle();
+  }
+
+  uint32_t Scene::nodeCount() const
+  {
+    return m_handles.count();
   }
 
 }
