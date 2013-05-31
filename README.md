@@ -10,8 +10,8 @@ Building
 
 Execute the following to build and install the library.
 
-    cd <Project root>
+    cd /path/to/project
     mkdir build
     cd build
-    cmake -DOGRE_PATH=<Path to Ogre3D> -DBOOST_PATH=<Path to Boost> -DZZIP_PATH=<Path to ZZip> -DFREE_IMAGE_PATH=<Path to FreeImage> -DCMAKE_INSTALL_PREFIX=<Install path> -DCMAKE_BUILD_TYPE=Release ..
+    cmake -DOGRE_PATH=/path/to/ogre -DBOOST_PATH=/path/to/boost -DZZIP_PATH=/path/to/zzip -DFREE_IMAGE_PATH=/path/to/free-image -DCMAKE_INSTALL_PREFIX=<Install path> -DCMAKE_BUILD_TYPE=Release ..
     make && make install
