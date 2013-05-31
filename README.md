@@ -8,9 +8,10 @@ the default scene graph in Ogre with a streamlined and more cache friendly varia
 Building
 ========
 
-Check out the code and run the following commands to build the library and run some unit-tests.
+Execute the following to build and install the library.
 
+    cd <Project root>
     mkdir build
     cd build
-    cmake ..
-    make
+    cmake -DOGRE_PATH=<Path to Ogre3D> -DBOOST_PATH=<Path to Boost> -DZZIP_PATH=<Path to ZZip> -DFREE_IMAGE_PATH=<Path to FreeImage> -DCMAKE_INSTALL_PREFIX=<Install path> -DCMAKE_BUILD_TYPE=Release ..
+    make && make install
