@@ -9,6 +9,7 @@ namespace gfx {
 
   Scene::~Scene()
   {
+    clear();
   }
 
   void Scene::clear()
@@ -31,9 +32,9 @@ namespace gfx {
     if (m_handles.get(handle, node))
     {
       *node = m_nodes.back();
-      m_nodes.resize(m_nodes.size() - 1);
       m_handles.update(node->handle, node);
       m_handles.remove(handle);
+      m_nodes.pop_back();
     }
   }
 

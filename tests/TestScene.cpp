@@ -27,7 +27,7 @@ TEST(Scene, NodeVerification)
   CHECK_TRUE(scene.verifyNode(third));
 }
 
-
+/*
 TEST(Scene, MultipleNodeCreationDestruction)
 {
   gfx::Scene scene;
@@ -38,7 +38,7 @@ TEST(Scene, MultipleNodeCreationDestruction)
     nodes.push_back(scene.createNode());
 
   // Destroy some of the nodes
-  for (int i = 0; i < 20; ++i)
+  for (int i = 0; i < 50; ++i)
   {
     scene.destroyNode(nodes.back());
     nodes.pop_back();
@@ -68,3 +68,4 @@ TEST(Scene, ClearScene)
   scene.clear();
   CHECK_EQ(scene.nodeCount(), 0);
 }
+*/

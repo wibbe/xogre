@@ -31,6 +31,7 @@ namespace test {
   };
 
   int runAllTests();
+  int runTest(const char * name);
 }
 
 

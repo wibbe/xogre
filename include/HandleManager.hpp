@@ -50,6 +50,7 @@ namespace gfx {
 
         m_entries[index].nextFreeIndex = m_firstFreeEntry;
         m_entries[index].active = 0;
+        m_entries[index].entry = 0;
         m_firstFreeEntry = index;
 
         --m_activeEntryCount;

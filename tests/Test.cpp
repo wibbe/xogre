@@ -2,6 +2,7 @@
 #include "Test.hpp"
 
 #include <stdarg.h>
+#include <string.h>
 
 namespace test {
 
@@ -62,6 +63,34 @@ namespace test {
     }
 
     return failed ? 1 : 0;
+  }
+
+  int runTest(const char * name)
+  {
+    for (Test * it = _testHead; it; it = it->next())
+    {
+      if (strcmp(it->name(), name) == 0)
+      {
+        printf("[1/1] %s - ", it->name());
+
+        try
+        {
+          it->run();
+          printf("SUCCESS\n");
+        }
+        catch (Exception const& exception)
+        {
+          printf("FAILED\n");
+          printf("  %s\n", exception.message());
+          return 1;
+        }
+
+        return 0;
+      }
+    }
+
+    printf("Could not fint test '%s'\n", name);
+    return 1;
   }
 
 }
