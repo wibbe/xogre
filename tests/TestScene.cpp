@@ -14,6 +14,20 @@ TEST(Scene, NodeCreationDestruction)
   scene.destroyNode(node);
 }
 
+TEST(Scene, NodeVerification)
+{
+  gfx::Scene scene;
+  gfx::Handle first = scene.createNode();
+  gfx::Handle second = scene.createNode();
+  gfx::Handle third = scene.createNode();
+  scene.destroyNode(first);
+
+  CHECK_FALSE(scene.verifyNode(first));
+  CHECK_TRUE(scene.verifyNode(second));
+  CHECK_TRUE(scene.verifyNode(third));
+}
+
+
 TEST(Scene, MultipleNodeCreationDestruction)
 {
   gfx::Scene scene;
