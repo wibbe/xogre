@@ -20,10 +20,9 @@ namespace gfx {
         reset();
       }
 
-      Handle add(T * object, uint32_t type)
+      Handle add(T * object)
       {
         assert(m_activeEntryCount < MAX_ENTRIES - 1);
-        assert(type >= 0 && type <= 31);
 
         const uint32_t newIndex = m_firstFreeEntry;
         assert(newIndex < MAX_ENTRIES);
@@ -40,7 +39,7 @@ namespace gfx {
 
         ++m_activeEntryCount;
 
-        return Handle(newIndex, m_entries[newIndex].counter, type);
+        return Handle(newIndex, m_entries[newIndex].counter, T::TYPE);
       }
 
       void remove(Handle handle)
@@ -81,7 +80,8 @@ namespace gfx {
       {
         const uint32_t index = handle.index;
         if (m_entries[index].counter != handle.counter ||
-            m_entries[index].active == false)
+            m_entries[index].active == false ||
+            handle.type != T::TYPE)
           return false;
 
         out = m_entries[index].entry;

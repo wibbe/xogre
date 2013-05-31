@@ -21,6 +21,7 @@ IF(NOT "${BOOST_PATH}" STREQUAL "")
 
   FIND_PACKAGE(Boost 1.50.0 COMPONENTS thread date_time REQUIRED)
   SET(DEPENDENCY_LIBS ${DEPENDENCY_LIBS} ${Boost_LIBRARIES})
+  INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 ENDIF()
 
 # Use ZZip if we specify a path for it

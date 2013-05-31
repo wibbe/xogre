@@ -20,6 +20,7 @@ namespace gfx {
     { }
 
     inline operator uint32_t () const;
+    inline bool isValid() const;
 
     uint32_t index : 14;
     uint32_t counter : 14;
@@ -29,6 +30,11 @@ namespace gfx {
   Handle::operator uint32_t () const
   {
     return type << 28 | counter << 14 | index;
+  }
+
+  bool Handle::isValid() const
+  {
+    return (uint32_t)(*this) != 0;
   }
 
 }

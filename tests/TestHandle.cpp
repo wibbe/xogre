@@ -44,3 +44,12 @@ TEST(Handle, Size)
   gfx::Handle handle;
   CHECK_EQ(sizeof(handle), sizeof(uint32_t));
 }
+
+TEST(Handle, Validity)
+{
+  gfx::Handle invalid;
+  gfx::Handle valid(1, 2, 3);
+
+  CHECK_FALSE(invalid.isValid());
+  CHECK_TRUE(valid.isValid());
+}

@@ -1,6 +1,6 @@
 
 SET(SOURCE
-  HandleManager.cpp
+  Scene.cpp
 )
 
 SET(LIBRARIES

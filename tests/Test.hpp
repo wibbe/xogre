@@ -50,7 +50,7 @@ namespace test {
         va_list varArg;
         va_start(varArg, str);
         vsnprintf(m_message, 128, str, varArg);
-        va_end(varArg);    
+        va_end(varArg);
       }
 
       const char * message() const { return m_message; }
@@ -102,9 +102,17 @@ namespace test {
                           static group##_##name##_Test __test_##group##_##name##__(#group"::"#name); \
                           void group##_##name##_Test::run()
 
-#define CHECK(expr) do {                                                         \
-                      if (!(expr)) throw throw test::Exception("%s(%d): %s", __FILE__, __LINE__, #expr);  \
+#define CHECK(expr) do { \
+                      if (!(expr)) throw test::Exception("%s(%d): %s", __FILE__, __LINE__, #expr); \
                     } while (0)
+
+#define CHECK_TRUE(expr) do { \
+                           if (!(expr)) throw test::Exception("%s(%d): %s", __FILE__, __LINE__, #expr); \
+                         } while (0)
+
+#define CHECK_FALSE(expr) do { \
+                            if (expr) throw test::Exception("%s(%d): %s", __FILE__, __LINE__, #expr); \
+                          } while (0)
 
 #define CHECK_EQ(arg, expected) do {                                                         \
                                   if ((arg) != (expected)) throw test::Exception("%s(%d): %s == %s", __FILE__, __LINE__, #arg, #expected);  \
