@@ -15,7 +15,7 @@ FIND_PACKAGE(OGRE REQUIRED)
 SET(DEPENDENCY_LIBS ${OGRE_LIBRARIES})
 INCLUDE_DIRECTORIES("${OGRE_INCLUDE_DIR}")
 
-# Use Boost if we were given a path
+# Use Boost if we specify a path for it
 IF(NOT "${BOOST_PATH}" STREQUAL "")
   SET(BOOST_ROOT ${BOOST_PATH})
 
