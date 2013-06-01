@@ -7,6 +7,13 @@ namespace gfx {
 
   struct Handle
   {
+    enum
+    {
+      MAX_INDEX   = 16384,  // 2^14
+      MAX_COUNTER = 16384,  // 2^14
+      MAX_TYPES   = 16      // 2^4
+    };
+
     Handle()
       : index(0),
         counter(0),

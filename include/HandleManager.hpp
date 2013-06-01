@@ -6,14 +6,11 @@
 
 namespace gfx {
 
-  /// Manager for handles, generates handles that are associated with some type of data
+  /// Manager for handles. Generates handles that are associated with some type of data.
   /// Implementation taken from this article: http://gamesfromwithin.com/managing-data-relationships
   template <typename T>
   class HandleManager
   {
-    public:
-      enum { MAX_ENTRIES = 16384 }; // 2^14
-
     public:
       HandleManager()
       {
@@ -22,10 +19,10 @@ namespace gfx {
 
       Handle add(T * object)
       {
-        assert(m_activeEntryCount < MAX_ENTRIES - 1);
+        assert(m_activeEntryCount < Handle::MAX_INDEX);
 
         const uint32_t newIndex = m_firstFreeEntry;
-        assert(newIndex < MAX_ENTRIES);
+        assert(newIndex < Handle::MAX_INDEX);
         assert(m_entries[newIndex].active == false);
         assert(!m_entries[newIndex].endOfList);
 
@@ -70,11 +67,11 @@ namespace gfx {
         m_activeEntryCount = 0;
         m_firstFreeEntry = 0;
 
-        for (uint32_t i = 0; i < MAX_ENTRIES - 1; ++i)
+        for (uint32_t i = 0; i < Handle::MAX_INDEX - 1; ++i)
           m_entries[i] = HandleEntry(i + 1);
 
-        m_entries[MAX_ENTRIES - 1] = HandleEntry();
-        m_entries[MAX_ENTRIES - 1].endOfList = true;
+        m_entries[Handle::MAX_INDEX] = HandleEntry();
+        m_entries[Handle::MAX_INDEX].endOfList = true;
       }
 
       T * get(Handle handle)
@@ -108,7 +105,7 @@ namespace gfx {
         T * entry;
       };
 
-      HandleEntry m_entries[MAX_ENTRIES];
+      HandleEntry m_entries[Handle::MAX_INDEX + 1];
 
       uint32_t m_activeEntryCount;
       uint32_t m_firstFreeEntry;

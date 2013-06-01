@@ -68,3 +68,14 @@ TEST(Scene, ClearScene)
   scene.clear();
   CHECK_EQ(scene.nodeCount(), 0);
 }
+
+TEST(Scene, Fill)
+{
+  gfx::Scene scene;
+
+  // Fill scene
+  for (int i = 0; i < gfx::Handle::MAX_INDEX; ++i)
+    CHECK_TRUE(scene.createNode().isValid());
+
+  CHECK_FALSE(scene.createNode().isValid());
+}

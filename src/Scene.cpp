@@ -24,7 +24,7 @@ namespace gfx {
 
   Handle Scene::createNode()
   {
-    if (m_nextFreeNode >= HandleManager<Node>::MAX_ENTRIES)
+    if (m_nextFreeNode >= Handle::MAX_INDEX)
       return Handle();
 
     Handle handle = m_handles.add(&m_nodes[m_nextFreeNode]);
@@ -68,6 +68,12 @@ namespace gfx {
   {
     if (Node * node = m_handles.get(nodeRef))
       node->attachment = Handle();
+  }
+
+  void Scene::setTransform(Handle nodeRef, Ogre::Vector3 const& position, Ogre::Vector3 const& scale, Ogre::Quaternion const& orientation)
+  {
+    if (Node * node = m_handles.get(nodeRef))
+      node->transform.makeTransform(position, scale, orientation);
   }
 
   void Scene::setVisibilityMask(Handle nodeRef, uint32_t visibilityMask)

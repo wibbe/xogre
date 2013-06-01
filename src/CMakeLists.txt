@@ -1,6 +1,7 @@
 
 SET(SOURCE
   Scene.cpp
+  Context.cpp
 )
 
 SET(LIBRARIES
