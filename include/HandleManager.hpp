@@ -77,24 +77,15 @@ namespace gfx {
         m_entries[MAX_ENTRIES - 1].endOfList = true;
       }
 
-      bool get(Handle handle, T *& out)
+      T * get(Handle handle)
       {
         const uint32_t index = handle.index;
         if (m_entries[index].counter != handle.counter ||
             m_entries[index].active == false ||
             handle.type != T::TYPE)
-          return false;
+          return NULL;
 
-        out = m_entries[index].entry;
-        return true;
-      }
-
-      T * get(Handle handle)
-      {
-        T * object;
-        if (!get(handle, object))
-          return 0;
-        return object;
+        return m_entries[index].entry;
       }
 
       uint32_t count() const { return m_activeEntryCount; }

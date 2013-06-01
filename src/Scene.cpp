@@ -4,6 +4,7 @@
 namespace gfx {
 
   Scene::Scene()
+    : m_nextFreeNode(0)
   {
   }
 
@@ -14,55 +15,70 @@ namespace gfx {
 
   void Scene::clear()
   {
-    m_nodes.clear();
+    for (uint32_t i = 0; i < m_nextFreeNode; ++i)
+      m_nodes[i] = Node();
+
+    m_nextFreeNode = 0;
     m_handles.reset();
   }
 
   Handle Scene::createNode()
   {
-    m_nodes.push_back(Node());
-    Handle handle = m_handles.add(&m_nodes.back());
-    m_nodes.back().handle = handle;
+    if (m_nextFreeNode >= HandleManager<Node>::MAX_ENTRIES)
+      return Handle();
+
+    Handle handle = m_handles.add(&m_nodes[m_nextFreeNode]);
+    m_nodes[m_nextFreeNode].handle = handle;
+    m_nextFreeNode++;
+
     return handle;
   }
 
   void Scene::destroyNode(Handle handle)
   {
-    Node * node = NULL;
-    if (m_handles.get(handle, node))
+    if (Node * node = m_handles.get(handle))
     {
-      *node = m_nodes.back();
-      m_handles.update(node->handle, node);
+      if (m_nextFreeNode > 0)
+        m_nextFreeNode--;
+
+      *node = m_nodes[m_nextFreeNode];
+      m_nodes[m_nextFreeNode] = Node();
+      
+      if (node->handle)
+        m_handles.update(node->handle, node);
+
       m_handles.remove(handle);
-      m_nodes.pop_back();
     }
   }
 
   bool Scene::verifyNode(Handle nodeRef)
   {
-    Node * node = NULL;
-    if (m_handles.get(nodeRef, node))
+    if (Node * node = m_handles.get(nodeRef))
       return node->handle == nodeRef;
     return false;
   }
 
   void Scene::attachEntity(Handle nodeRef, Handle entity)
   {
-    Node * node = NULL;
-    if (m_handles.get(nodeRef, node))
+    if (Node * node = m_handles.get(nodeRef))
       node->attachment = entity;
   }
 
   void Scene::detachEntity(Handle nodeRef)
   {
-    Node * node = NULL;
-    if (m_handles.get(nodeRef, node))
+    if (Node * node = m_handles.get(nodeRef))
       node->attachment = Handle();
+  }
+
+  void Scene::setVisibilityMask(Handle nodeRef, uint32_t visibilityMask)
+  {
+    if (Node * node = m_handles.get(nodeRef))
+      node->visibilityMask = visibilityMask;
   }
 
   uint32_t Scene::nodeCount() const
   {
-    return m_handles.count();
+    return m_nextFreeNode;
   }
 
 }

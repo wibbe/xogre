@@ -24,11 +24,14 @@ namespace gfx {
       void attachEntity(Handle node, Handle entity);
       void detachEntity(Handle node);
 
+      void setVisibilityMask(Handle node, uint32_t visibilityMask);
+
       uint32_t nodeCount() const;
 
     private:
       HandleManager<Node> m_handles;
-      std::vector<Node> m_nodes;
+      Node m_nodes[HandleManager<Node>::MAX_ENTRIES];
+      uint32_t m_nextFreeNode;
   };
 
 }
